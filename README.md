@@ -229,6 +229,16 @@ I have followed code modularity by breaking the entire application into multiple
 
 Each component folder shall contain it's unit test cases.
 
+## Additional Requirements Achieved
+
+- Search supports debounce and hitting Enter to trigger
+- Service details must be triggerable by a link
+- Service details should display service name and visually highlight the displayed service's card
+
+## Stretch goal
+
+- Hover avatar will display user info card
+
 ## Trade Offs
 
 - Have written example unit test cases for PageHome, error and loading states, ServiceCard and Sidebar.

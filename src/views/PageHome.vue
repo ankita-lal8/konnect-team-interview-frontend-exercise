@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="page-home"
-    data-testid="page-home"
-  >
+  <div class="page-home" data-testid="page-home">
     <section class="page-home--header">
       <span class="page-home--header-text">
         <h1>Service Hub</h1>
@@ -19,7 +16,7 @@
           type="search"
           @input="() => debouncedSearch()"
           @keyup.enter="triggerSearch"
-        >
+        />
         <button
           class="add-service"
           data-testid="add-service"
@@ -36,13 +33,12 @@
         :error-type="errorType"
         @navigate_home="handleRefresh"
       />
-      <template
-        v-for="service in paginatedData"
-        v-else
-        :key="service.id"
-      >
+      <template v-for="service in paginatedData" v-else :key="service.id">
         <ServiceCard
           :service="service"
+          :class="[
+            sidebarData && sidebarData.id === service.id ? 'active' : '',
+          ]"
           @view_service_versions="handleVersionsListVisibility"
         />
       </template>
@@ -68,17 +64,17 @@
 </template>
 
 <script lang="ts" setup>
-import ServiceCard from '@/components/ServiceCard/ServiceCard.vue'
-import DataPagination from '@/components/DataPagination/DataPagination.vue'
-import VersionsSidebar from '@/components/VersionsSidebar/VersionsSidebar.vue'
-import AddOverlay from '@/components/AddOverlay/AddOverlay.vue'
-import DataLoader from '@/components/DataLoader.vue'
-import ErrorState from '@/components/ErrorState/ErrorState.vue'
-import useServices from '@/composables/useServices'
-import { debounce } from '@/composables/utils'
-import { computed, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import type { SERVICE } from '@/types'
+import ServiceCard from "@/components/ServiceCard/ServiceCard.vue";
+import DataPagination from "@/components/DataPagination/DataPagination.vue";
+import VersionsSidebar from "@/components/VersionsSidebar/VersionsSidebar.vue";
+import AddOverlay from "@/components/AddOverlay/AddOverlay.vue";
+import DataLoader from "@/components/DataLoader.vue";
+import ErrorState from "@/components/ErrorState/ErrorState.vue";
+import useServices from "@/composables/useServices";
+import { debounce } from "@/composables/utils";
+import { computed, ref, watch } from "vue";
+import { useRoute } from "vue-router";
+import type { SERVICE } from "@/types";
 
 const {
   services,
@@ -87,64 +83,64 @@ const {
   errorType,
   getFilteredServices,
   refreshServices,
-} = useServices()
-const $route = useRoute()
-const currentPage = ref<number>(1)
-const searchInput = ref<string>('')
-const filteredData = ref<SERVICE[]>([])
-const sidebarData = ref<SERVICE | null>(null)
-const isSidebarVisible = ref<boolean>(false)
-const isOverlayOpen = ref<boolean>(false)
-const pageSize: number = 9
+} = useServices();
+const $route = useRoute();
+const currentPage = ref<number>(1);
+const searchInput = ref<string>("");
+const filteredData = ref<SERVICE[]>([]);
+const sidebarData = ref<SERVICE | null>(null);
+const isSidebarVisible = ref<boolean>(false);
+const isOverlayOpen = ref<boolean>(false);
+const pageSize: number = 9;
 
 const dataToBeUsed = computed(() => {
-  return searchInput.value.length ? filteredData.value : services.value
-})
+  return searchInput.value.length ? filteredData.value : services.value;
+});
 const paginatedData = computed<SERVICE[]>(() => {
-  const start = (currentPage.value - 1) * 9
-  const end = start + 9
-  return dataToBeUsed.value.slice(start, end)
-})
+  const start = (currentPage.value - 1) * 9;
+  const end = start + 9;
+  return dataToBeUsed.value.slice(start, end);
+});
 
 watch([() => $route.query?.id, () => services.value], () => {
   if ($route?.query?.id && services.value) {
     const service = services.value.find(
-      (service: any) => service.id === $route.query.id,
-    )
+      (service: any) => service.id === $route.query.id
+    );
     if (service) {
-      handleVersionsListVisibility(service)
-      getPageNumber(service)
+      handleVersionsListVisibility(service);
+      getPageNumber(service);
     }
   }
-})
+});
 
 function handleRefresh(): void {
-  currentPage.value = 1
-  searchInput.value = ''
+  currentPage.value = 1;
+  searchInput.value = "";
   refreshServices()
     .then(() => {
-      error.value = false
+      error.value = false;
     })
     .catch((err: Error) => {
-      console.log(err)
-    })
+      console.log(err);
+    });
 }
 
 function handlePageChange(page: number): void {
-  currentPage.value = page
+  currentPage.value = page;
 }
 
 function triggerSearch(): void {
   if (searchInput.value.length >= 2) {
-    error.value = false
-    currentPage.value = 1
+    error.value = false;
+    currentPage.value = 1;
     getFilteredServices(searchInput.value)
       .then((data: any) => {
-        filteredData.value = data
+        filteredData.value = data;
       })
       .catch((err: Error) => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   }
 }
 function getVersionsData(service: any) {
@@ -153,29 +149,29 @@ function getVersionsData(service: any) {
       serviceName: service.name,
       versions: service.versions,
       type: service.type,
-    }
-    return versionsData
+    };
+    return versionsData;
   }
 }
 
 function closeSidebar(): void {
-  isSidebarVisible.value = false
-  sidebarData.value = null
+  isSidebarVisible.value = false;
+  sidebarData.value = null;
 }
 
 function handleVersionsListVisibility(data: SERVICE): void {
-  sidebarData.value = data
-  isSidebarVisible.value = true
+  sidebarData.value = data;
+  isSidebarVisible.value = true;
 }
 
 function getPageNumber(serviceToFind: SERVICE): void {
   const index = services.value.findIndex(
-    (service: any) => service.id === serviceToFind.id,
-  )
-  currentPage.value = searchInput.value.length ? 1 : Math.ceil((index + 1) / 9)
+    (service: any) => service.id === serviceToFind.id
+  );
+  currentPage.value = searchInput.value.length ? 1 : Math.ceil((index + 1) / 9);
 }
 
-const debouncedSearch = debounce(triggerSearch, 500)
+const debouncedSearch = debounce(triggerSearch, 500);
 </script>
 <style lang="scss" scoped>
 .page-home {
