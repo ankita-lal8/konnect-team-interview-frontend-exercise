@@ -10,15 +10,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import GlobalHeader from '@/components/GlobalHeader/index.vue'
+import { defineComponent } from "vue";
+import GlobalHeader from "@/components/GlobalHeader/GlobalHeader.vue";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
     GlobalHeader,
   },
-})
+});
 </script>
 
 <style lang="scss" scoped></style>

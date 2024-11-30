@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="popover"
-    data-v-inspector="src/components/Popover/index.vue:2:3"
-  >
+  <div class="popover" data-v-inspector="src/components/Popover/index.vue:2:3">
     <ul data-v-inspector="src/components/Popover/index.vue:3:5">
       <li
         v-for="developer in list"
@@ -18,23 +15,23 @@
           data-v-inspector="src/components/Popover/index.vue:9:9"
           src="@/assets/copy.svg"
           @click="copyEmail(developer.email)"
-        >
+        />
       </li>
     </ul>
   </div>
 </template>
 <script setup lang="ts">
-import DeveloperDetail from '@/components/DeveloperDetail/index.vue'
+import DeveloperDetail from "@/components/DeveloperDetail/DeveloperDetail.vue";
 
 const { list } = defineProps<{
   list: any;
-}>()
+}>();
 
 function copyEmail(email: string) {
   navigator.clipboard
     .writeText(email)
     .then(() => {})
-    .catch(() => {})
+    .catch(() => {});
 }
 </script>
 <style lang="scss" scoped>
