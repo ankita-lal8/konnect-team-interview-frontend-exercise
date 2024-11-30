@@ -162,9 +162,11 @@ onMounted(() => {
   const container = document.querySelector(
     ".service-hub-wrapper"
   ) as HTMLElement;
-  const items: HTMLElement[] = Array.from(
-    container?.querySelectorAll(".service-card")
-  ) as HTMLElement[];
+  const items: HTMLElement[] | null = container
+    ? (Array.from(
+        container?.querySelectorAll(".service-card")
+      ) as HTMLElement[])
+    : null;
   const containerWidth: number = container?.offsetWidth;
   if (items?.length) {
     const itemWidth: number = items[0].offsetWidth;

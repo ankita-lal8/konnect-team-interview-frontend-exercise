@@ -1,51 +1,31 @@
 <template>
   <div class="header">
-    <section
-      class="header--app-name"
-      @click="navigateToHome"
-    >
-      <img
-        alt="Kong"
-        class="kong"
-        src="@/assets/kong-logo.svg"
-      >
-      <img
-        alt="Konnect"
-        class="konnect"
-        src="@/assets/konnect.svg"
-      >
+    <section class="header--app-name cursor-pointer" @click="navigateToHome">
+      <img alt="Kong" class="kong" src="@/assets/kong-logo.svg" />
+      <img alt="Konnect" class="konnect" src="@/assets/konnect.svg" />
     </section>
     <section class="header--user-preferences">
       <p>
-        <img
-          alt="organization"
-          src="@/assets/account.svg"
-        >
+        <img alt="organization" src="@/assets/account.svg" />
         <span>Organization</span>
       </p>
       <p>
-        <img
-          alt="settings"
-          src="@/assets/settings.svg"
-        >
+        <img alt="settings" src="@/assets/settings.svg" />
         <span>Settings</span>
       </p>
       <p>
-        <img
-          alt="user-profile"
-          src="@/assets/avatar.svg"
-        >
+        <img alt="user-profile" src="@/assets/avatar.svg" />
         <span>Ankita Lal</span>
       </p>
     </section>
   </div>
 </template>
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
-const $router = useRouter()
+const $router = useRouter();
 function navigateToHome() {
-  $router.push({ name: 'home' })
+  $router.push({ name: "home" });
 }
 </script>
 <style lang="scss" scoped>
