@@ -18,5 +18,5 @@ module.exports = {
     },
   ],
   plugins: ['stylelint-order'],
-  rules: { 'order/properties-alphabetical-order': true },
+  rules: { 'order/properties-alphabetical-order': false,'vue/multi-word-component-names': false,'vue/singleline-html-element-content-newline': false, '@stylistic/comma-dangle':false,'@stylistic/object-curly-spacing':false },
 }
