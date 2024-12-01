@@ -198,3 +198,51 @@ pnpm commit
 ```
 
 This will trigger the Commitizen interactive prompt for building your commit message.
+
+## Design Consideration
+
+I have followed code modularity by breaking the entire application into multiple components.
+
+1. /src folder contains
+
+- /assets - contains all the static assets(svgs in this case)
+- /components - contains all the components used in the application
+- /composables - contains the reusable functions and services
+- /router - contains the routes
+- /stores - contains states
+- /styles - contains the common styles and css variables
+- /views - contains the pages corresponding to the routes
+- constants.ts - contains the constant configs used in different components.
+- types.ts - contains all the interfaces and types.
+
+2. /components contains -
+
+- /GlobalHeader - the main header.
+- /ServiceCard - the card UI that is looped on the services data and rendered.
+- /DataPagination - pagination component.
+- /VersionSidebar - the sidebar component that opens up from right, when clicked on versions count on the ServiceCard
+- /DeveloperDetail - the component that shows the developer name, email, last updated time conditionally.
+- DeveloperPopover- the component that appears on hover over the avatar icon on the Service Card. It displays the the developer name with email id and capability to copy the email.
+- /ErrorState - UI component for error or empty states
+- /AddOverlay - Modal for Adding Services
+- DataLoader - loader UI
+
+Each component folder shall contain it's unit test cases.
+
+## Additional Requirements Achieved
+
+- Search supports debounce and hitting Enter to trigger
+- Service details must be triggerable by a link
+- Service details should display service name and visually highlight the displayed service's card
+
+## Stretch goal
+
+- Hover avatar will display user info card
+
+## Trade Offs
+
+- Have written example unit test cases for PageHome, error and loading states, ServiceCard and Sidebar.
+
+- Have fixed few linting errors, although there are still few ones remaining.
+
+- The UI may distort for mobile as it only caters desktp, laptop and tablet using the relative pixels.
